@@ -2,20 +2,28 @@
 
 <table>
     <tr>
-        <td>Baris 1 kolom 1</td>
-        <td>baris 1 kolom 2</td>
+        <td>sqllite</td>
     </tr>
     <tr>
-        <td>Baris 2 kolom 1</td>
-        <td>baris 2 kolom 2</td>
+        <td>
+        DB_CONNECTION=sqlite
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=laravel
+        DB_USERNAME=root
+        DB_PASSWORD=
+        </td>
     </tr>
-</table><br>
 
-    DB_CONNECTION=sqlite
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=laravel
-    DB_USERNAME=root
-    DB_PASSWORD=
+</table>
 
-2. generate:key
+    sqllite<br>
+
+    
+
+    <br>
+
+2. generate key untuk .env dengan CLI<br>
+
+    php artisan key:generate
+
