@@ -37,12 +37,12 @@
 
 2. generate key untuk .env dengan CLI
 
-    <br> php artisan key:generate <br>
+    php artisan key:generate <br>
 
 3. lakukan migrasi database 
 
-    <br> php artisan migrate <br>
+    php artisan migrate <br>
 
 4. jalakan aplikasi
 
-    <br> php artisan serve <br>
+    php artisan serve <br>
