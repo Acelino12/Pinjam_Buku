@@ -15,4 +15,12 @@ class Countries extends Model
     public function users(): HasMany{
         return $this->hasMany(Bookstore_users::class);
     }
+
+    public function countries(): HasMany{
+        return $this->hasMany(Authors::class);
+    }
+
+    public function publisher(): HasMany{
+        return $this->hasMany(Publishers::class);
+    }
 }
