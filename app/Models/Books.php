@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Books extends Model
 {
@@ -25,12 +26,18 @@ class Books extends Model
         'pages'
     ];
 
-
+    // buku hanya memiliki 1 author
     public function authors(): BelongsTo {
         return $this->belongsTo(Authors::class);
     }
 
+    // buku hanya memiliki 1 publiser
     public function publisher(): BelongsTo{
         return $this->belongsTo(Publishers::class);
+    }
+
+    // buku hanya memiliki banyak rent item
+    public function rental_item(): HasMany{
+        return $this->hasMany(rental_items::class);
     }
 }
