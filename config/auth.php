@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Bookstore_users;
+
 return [
 
     /*
@@ -15,7 +17,7 @@ return [
 
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'admins'),
     ],
 
     /*
@@ -28,7 +30,7 @@ return [
     | which utilizes session storage plus the Eloquent user provider.
     |
     | All authentication guards have a user provider, which defines how the
-    | users are actually retrieved out of your database or other storage
+    | admins are actually retrieved out of your database or other storage
     | system used by the application. Typically, Eloquent is utilized.
     |
     | Supported: "session"
@@ -40,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'api' => [ // Guard untuk BookstoreUser (pengguna API)
+            'driver' => 'token', // Atau 'sanctum' jika Anda menggunakan Laravel Sanctum
+            'provider' => 'bookstore_users'
+        ],
     ],
 
     /*
@@ -48,7 +54,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | All authentication guards have a user provider, which defines how the
-    | users are actually retrieved out of your database or other storage
+    | admins are actually retrieved out of your database or other storage
     | system used by the application. Typically, Eloquent is utilized.
     |
     | If you have multiple user tables or models you may configure multiple
@@ -64,10 +70,14 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Admins::class),
         ],
+        'bookstore_user' =>[
+            'driver' => 'eloquent',
+            'model'=> env('AUTH_MODEL', App\Models\Bookstore_users::class)
+        ],
 
-        // 'users' => [
+        // 'admins' => [
         //     'driver' => 'database',
-        //     'table' => 'users',
+        //     'table' => 'admins',
         // ],
     ],
 
@@ -91,9 +101,15 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+        'admins' => [ // Konfigurasi reset password untuk Admin
+            'provider' => 'admins',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_admin_reset_tokens'),//pastikan sama dengan migrasi
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'bookstore_users' => [ // Konfigurasi reset password untuk user
+            'provider' => 'admins',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_user_reset_tokens'), //pastikan sama dengan migrasi
             'expire' => 60,
             'throttle' => 60,
         ],
@@ -105,7 +121,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may define the number of seconds before a password confirmation
-    | window expires and users are asked to re-enter their password via the
+    | window expires and admins are asked to re-enter their password via the
     | confirmation screen. By default, the timeout lasts for three hours.
     |
     */
