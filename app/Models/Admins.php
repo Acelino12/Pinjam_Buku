@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+// impor Authenticatable dari Laravel's Auth User base class
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admins extends Model
+class Admins extends Authenticatable
 {
     use HasFactory, Notifiable;
 
