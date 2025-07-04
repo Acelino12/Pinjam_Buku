@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\UsersController;
 use App\Models\Bookstore_users;
@@ -22,7 +24,7 @@ Route::get('/home', function(){
     return view('layouts.app');
 });
 
-Route::get('/country',[CountryController::class,'index']);
+Route::get('/countrys',[CountryController::class,'index']);
 Route::get('/newcountry',function(){
     return view('feature.add-country');
 });
@@ -42,4 +44,14 @@ Route::get('/newuser',[UsersController::class,'showinput']); // untuk menampilka
 Route::post('/adduser',[UsersController::class,'store']); // input new user
 Route::get('/userdetails/{id}',[UsersController::class,'show']); // detail user
 Route::get('/userdelete/{id}',[UsersController::class,'delete']); // delete user
-Route::get('/softdelete',[Bookstore_users::class,'softdelete']);
+Route::get('/softdelete',[UsersController::class,'softdelete']);
+
+// publisher
+Route::get('/publisher', [PublisherController::class,'index']);
+Route::get('/newpublisher',[PublisherController::class,'showinput']);
+Route::post('/addpublisher',[PublisherController::class,'store']);
+
+// Author
+Route::get('/authors',[AuthorController::class,'index']);
+Route::get('/newauthor',[AuthorController::class,'showinput']);
+Route::post('/addauthor',[AuthorController::class,'store']);
