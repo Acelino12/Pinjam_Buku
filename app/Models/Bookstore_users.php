@@ -3,18 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+// impor Authenticatable dari Laravel's Auth User base class
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Bookstore_users extends Model
+class Bookstore_users extends Authenticatable
 {
     use HasFactory;
+    use SoftDeletes;
+
+    protected $dates = [
+        'deleted_at'
+    ];
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        'gander',
+        'gender',
+        'code_user',
         'phone',
         'country_id',
         'place_of_birth',
@@ -23,7 +31,7 @@ class Bookstore_users extends Model
         'address',
         'photo',
         'can_buy',
-        'can_rent'
+        'can_rent',
     ];
 
     protected $hidden =[
@@ -38,7 +46,7 @@ class Bookstore_users extends Model
      // Relasi: User milik satu Country
     public function countries(): BelongsTo
     {
-        return $this->belongsTo(Countries::class);
+        return $this->belongsTo(Countries::class,'country_id');
     }
 
     // Relasi: User memiliki banyak Purchases
