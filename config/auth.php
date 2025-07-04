@@ -42,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'admins' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
         'api' => [ // Guard untuk BookstoreUser (pengguna API)
             'driver' => 'token', // Atau 'sanctum' jika Anda menggunakan Laravel Sanctum
             'provider' => 'bookstore_users'
