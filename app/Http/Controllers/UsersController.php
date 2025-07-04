@@ -85,4 +85,17 @@ class UsersController extends Controller
         $date = Carbon::parse($user->date_of_birth)->format('d-m-Y');
         return view('users.datail-user',['user' => $user,'date' => $date]);
     }
+
+    public function delete($id){
+        $user = Bookstore_users::find($id);
+        $user->delete();
+
+        return redirect('/users');
+    }
+
+    // data yang telah di soft delete
+    public function softdelete(){
+        $dataSoftDelete = Bookstore_users::onlyTrashed()->get();
+        return view('feature.soft-delete',['datausers' => $dataSoftDelete]);
+    }
 }
