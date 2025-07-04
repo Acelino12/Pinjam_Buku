@@ -47,6 +47,21 @@
             margin-bottom: 3em;
         }
 
+        .error {
+            width: 85%;
+            height: auto;
+            margin: 10px;
+            padding: 10px;
+            align-items: center;
+            background-color: #be340a
+        }
+
+        .error-line {
+            color: #c0392b;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: medium;
+        }
+
         label {
             display: block;
             margin-bottom: 0.5em;
@@ -158,12 +173,6 @@
             /* Ukuran panah */
         }
 
-        .error-line {
-            color: #c0392b;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size: medium;
-        }
-
 
         /* Jika Anda ingin panah berubah saat select dibuka/di-focus (opsional) */
         /* Ini lebih sulit tanpa JavaScript, karena :checked/:selected tidak berlaku untuk select */
@@ -171,7 +180,7 @@
     </style>
 
     @yield('css')
-    
+
 </head>
 
 <body>
@@ -180,18 +189,19 @@
     </header>
 
     <main>
-        {{-- @if ($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <strong class="font-bold">Oops!</strong>
-            <span class="block sm:inline">Ada beberapa masalah dengan input Anda:</span>
-            <ul class="mt-2 list-disc list-inside">
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif --}}
+
         <div class="container">
+            @if ($errors->any())
+                <div class="error" role="alert">
+                    <strong class="font-bold">Oops!</strong>
+                    <span class="block sm:inline">Ada beberapa masalah dengan input Anda:</span>
+                    <ul class="mt-2 list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @yield('content')
         </div>
 
