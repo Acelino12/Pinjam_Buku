@@ -60,7 +60,7 @@ class UsersController extends Controller
         }
 
         // Format nomor urut menjadi 5 digit dengan leading zeros
-        $newSequence = str_pad($newNumber, 5, '0', STR_PAD_LEFT);
+        $newSequence = str_pad((string)$newNumber, 5, '0', STR_PAD_LEFT);
 
         // Gabungkan semua bagian
         $finalCode = $prefix . $currentYearMonth . $newSequence;
