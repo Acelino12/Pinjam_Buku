@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\SalesController;
@@ -55,3 +56,9 @@ Route::post('/addpublisher',[PublisherController::class,'store']);
 Route::get('/authors',[AuthorController::class,'index']);
 Route::get('/newauthor',[AuthorController::class,'showinput']);
 Route::post('/addauthor',[AuthorController::class,'store']);
+
+// Book
+Route::get('/books',[BooksController::class,'index']);
+Route::get('/newbook',[BooksController::class,'showinput']);
+Route::post('/addbook',[BooksController::class,'store']);
+Route::get('/bookdetail/{id}',[BooksController::class,'show']);

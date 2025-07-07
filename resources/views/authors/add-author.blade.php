@@ -1,6 +1,6 @@
 @extends('layouts.crud')
 
-@section('title', 'new publisher')
+@section('title', 'New Author')
 
 @section('css')
 
@@ -31,7 +31,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="date_of_birth">Alamat :</label>
+                <label for="date_of_birth">Tanggal Lahir :</label>
                 <input type="date" id="date_of_birth" name="date_of_birth" required>
                 @error('date_of_birth')
                     <p class='error-line'>{{$message}}</p>

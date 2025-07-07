@@ -14,6 +14,6 @@
 
     </form>
     <div class="forget">
-        <a href="{{url(('/country'))}}">back</a>
+        <a href="{{url(('/countrys'))}}">back</a>
     </div>
 @endsection

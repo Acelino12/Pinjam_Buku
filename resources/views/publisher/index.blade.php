@@ -25,12 +25,15 @@
 @endsection
 
 @section('content')
-    <h2>Publisher</h2><br>
+    <h2>Publisher</h2>
+    <br>
     <a href="/newpublisher" class="btn btn-primary">tambah data</a>
     <a href="/softdelete" class="btn btn-primary">Data terhapus</a>
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+    <br>
+    @if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{Session::get('success')}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 

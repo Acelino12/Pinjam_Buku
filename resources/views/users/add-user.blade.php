@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <h3>Create new peminjam</h3>
+    <h3>Create new User</h3>
 
     <div class="container">
         <form action="{{url('/adduser')}}" method="POST">

@@ -37,6 +37,6 @@ class PublisherController extends Controller
             'web_url'       => $request->web_url
         ]);
 
-        return redirect('/publisher')->with(['success', 'berhasil input']);
+        return redirect('/publisher')->with(['success', 'berhasil input Publisher']);
     }
 }

@@ -20,5 +20,7 @@ class CountryController extends Controller
         Countries::create([
             'name' => $request->name,
         ]);
+
+        return redirect('/countrys')->with('success','berhasil menambahkan Negara');
     }
 }
