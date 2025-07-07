@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bookstore_users extends Authenticatable
 {
@@ -50,15 +51,15 @@ class Bookstore_users extends Authenticatable
     }
 
     // Relasi: User memiliki banyak Purchases
-    // public function purchases(): HasMany
-    // {
-    //     return $this->hasMany(Purchase::class, 'user_id'); // Pastikan FK sesuai
-    // }
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchases::class, 'user_id'); // Pastikan FK sesuai
+    }
 
     // Relasi: User memiliki banyak RentalOrders
-    // public function rentalOrders(): HasMany
-    // {
-    //     return $this->hasMany(RentalOrder::class, 'user_id'); // Pastikan FK sesuai
-    // }
+    public function rentalOrders(): HasMany
+    {
+        return $this->hasMany(rental_orders::class, 'user_id'); // Pastikan FK sesuai
+    }
 
 }
