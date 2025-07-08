@@ -15,7 +15,7 @@
     <h3>Create new Book</h3>
 
     <div class="container">
-        <form action="{{url('/addbook')}}" method="POST">
+        <form action="{{url('/books/addbook')}}" method="POST">
             @csrf
 
             <div class="mb-3">
