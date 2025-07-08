@@ -68,7 +68,7 @@
 
             <button class="btn btn-success" type="submit">Save</button>
         </form>
-        <a href="{{url('/publisher')}}">back</a>
+        <a href="{{url('/publishers')}}">back</a>
     </div>
 @endsection
 
