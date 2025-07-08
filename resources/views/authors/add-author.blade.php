@@ -10,7 +10,7 @@
     <h3>Create new Author</h3>
 
     <div class="container">
-        <form action="{{url('/addauthor')}}" method="POST">
+        <form action="{{url('authors/addauthor')}}" method="POST">
             @csrf
 
             <div class="mb-3">
