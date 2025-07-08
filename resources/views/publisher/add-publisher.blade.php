@@ -10,7 +10,7 @@
     <h3>Create new Publisher</h3>
 
     <div class="container">
-        <form action="{{url('/addpublisher')}}" method="POST">
+        <form action="{{url('publishers/addpublisher')}}" method="POST">
             @csrf
 
             <div class="mb-3">
