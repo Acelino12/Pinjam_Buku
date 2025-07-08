@@ -4,11 +4,14 @@
 
 @section('content')
     <h3>country</h3>
-    <form action="{{url('/addcountry')}}" method="POST">
+    <form action="{{url('countrys/addcountry')}}" method="POST">
         @csrf
         <div class="form-grup">
             <label for="name">Country :</label>
             <input type="name" id="name" name="name" />
+            @error('name')
+                <P class="error-line">{{$message}}</P>
+            @enderror
         </div>
         <button type="submit">Save</button>
 

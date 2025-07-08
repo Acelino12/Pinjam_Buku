@@ -5,7 +5,7 @@
 @section('content')
     <h3>country</h3>
     <br>
-    <a href="{{url('/newcountry')}}" class="btn btn-primary">tambah data</a>
+    <a href="{{url('countrys/newcountry')}}" class="btn btn-primary">tambah data</a>
     <br>
     @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -27,7 +27,7 @@
                     <td>{{$loop->iteration}}</td>
                     <td>{{$item->name}}</td>
                     <td>
-                        <a href="countrydelete/{{$item->id}}">Delete</a>
+                        <a href="countrys/delete/{{$item->id}}">Delete</a>
                     </td>
                 </tr>
             @endforeach

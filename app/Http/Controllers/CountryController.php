@@ -12,6 +12,11 @@ class CountryController extends Controller
 
         return view('feature.country',['country' => $country]);
     }
+
+    public function input(){
+        return view('feature.add-country');
+    }
+
     public function create(Request $request){
         $request->validate([
             'name' => 'required|max:100'
@@ -22,5 +27,12 @@ class CountryController extends Controller
         ]);
 
         return redirect('/countrys')->with('success','berhasil menambahkan Negara');
+    }
+
+    public function delete($id){
+        $data = Countries::find($id);
+        $data->delete();
+
+        return redirect('/countrys');
     }
 }
