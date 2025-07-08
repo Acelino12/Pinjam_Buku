@@ -4,6 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- JS Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <title>BukuKita | @yield('title')</title>
     <style>
         * {
@@ -17,7 +24,7 @@
             box-shadow: 0 2px 2px black;
         }
 
-        main h3{
+        main h3 {
             text-align: center;
         }
 
@@ -35,7 +42,7 @@
             border-radius: 5px;
         }
 
-        select{
+        select {
             width: 100%;
         }
 
@@ -44,6 +51,7 @@
             font-family: monospace;
             font-style: italic;
         }
+
         button {
             background-color: #28a745;
             color: white;
