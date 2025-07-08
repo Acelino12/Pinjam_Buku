@@ -27,8 +27,8 @@
 @section('content')
     <h2>Publisher</h2>
     <br>
-    <a href="/newpublisher" class="btn btn-primary">tambah data</a>
-    <a href="/softdelete" class="btn btn-primary">Data terhapus</a>
+    <a href="{{url('publishers/newpublisher')}}" class="btn btn-primary">tambah data</a>
+    <a href="{{url('publishers/softdelete')}}" class="btn btn-primary">Data terhapus</a>
     <br>
     @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -61,8 +61,8 @@
                         </div>
                     </td>
                     <td>
-                        <a href="publisherdetails/{{$item->id}}">Detail</a>
-                        <a href="publisherdelete/{{$item->id}}">Delete</a>
+                        <a href="{{url('publishers/publisherdetails/{{$item->id}}')}}">Detail</a>
+                        <a href="{{url('publishers/publisherdelete/{{$item->id}}')}}">Delete</a>
                     </td>
                 </tr>
             @endforeach
