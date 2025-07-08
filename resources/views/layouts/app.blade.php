@@ -153,7 +153,7 @@
 
             <li><a href="{{url('/home')}}">Dashboard</a></li>
             <li><a href="{{url('/sales')}}">Sales</a></li>
-            <li><a href="{{url("/rentals")}}">Rental</a></li>
+            <li><a href="{{url("/rental")}}">Rental</a></li>
             <li><a href="{{url("/users")}}">Users</a></li>
             <li><a href="{{url('/profil')}}">Profil</a></li>
             <li><a href="{{url('/books')}}">Books</a></li>
@@ -172,7 +172,7 @@
             </li> --}}
         </ul>
         <footer class="bg-gray-200 text-center p-4 mt-8">
-            &copy; {{ date('Y') }} Bookstore App.
+            &copy; {{ date('Y') }} BukuKita.
         </footer>
     </div>
 
