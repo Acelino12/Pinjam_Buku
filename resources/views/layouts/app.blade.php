@@ -158,7 +158,7 @@
             <li><a href="{{url('/profil')}}">Profil</a></li>
             <li><a href="{{url('/books')}}">Books</a></li>
             <li><a href="{{url('/authors')}}">Authors</a></li>
-            <li><a href="{{url('/publisher')}}">Publishers</a></li>
+            <li><a href="{{url('/publishers')}}">Publishers</a></li>
             <li><a href="{{url('/countrys')}}">Country</a></li>
             <li><a href="{{url('/setting')}}">Pengaturan</a></li>
             <li><a href="{{url('/logout')}}">logout</a></li>
