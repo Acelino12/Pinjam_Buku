@@ -15,23 +15,26 @@ class rental_orders extends Model
         'user_id',
         'code_rent',
         'rental_date',
-        'borrowed',
         'due_at',
-        'late_fee_per_week'
+        'total_late_fee',
+        'books_id',
+        'returned_at',
+        'late_fee_per_week',
+        'status'
     ];
 
     protected $casts = [
         'borrowed' => 'date',
-        'due_at' => 'date'
+        'due_at' => 'date',
+        'returned_at' => 'date'
     ];
 
     // rental order memiliki 1 user
-    public function users():BelongsTo {
+    public function user():BelongsTo {
         return $this->belongsTo(Bookstore_users::class);
     }
 
-    //rental orders memiliki banyak rental items
-    public function items(): HasMany{
-        return $this->hasMany(rental_items::class);
+    public function books(): BelongsTo{
+        return $this->belongsTo(Books::class);
     }
 }

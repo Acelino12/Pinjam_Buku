@@ -78,6 +78,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/rental')->controller(RentalController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/newrental', 'showinput');
+        Route::post('/addrental','rentaladd');
+        Route::get('/rentdetail/{id}','show');
     });
 
     // Sales
