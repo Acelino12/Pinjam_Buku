@@ -1,6 +1,6 @@
 @extends('layouts.crud')
 
-@section('title', 'detail')
+@section('title', 'User')
 
 @section('css')
     <style>
@@ -22,7 +22,7 @@
 @endsection
 
 @section('content')
-    <h3>Create new peminjam</h3>
+    <h3>Detail Users</h3>
 
     <div class="container">
         <form method="GET">

@@ -10,7 +10,7 @@
     <h3>Create new User</h3>
 
     <div class="container">
-        <form action="{{url('/adduser')}}" method="POST">
+        <form action="{{url('users/adduser')}}" method="POST">
             @csrf
 
             <div class="mb-3">
@@ -72,6 +72,7 @@
 
             <button class="btn btn-success" type="submit">Save</button>
         </form>
+        <a href="{{url('/users')}}">back</a>
     </div>
 @endsection
 

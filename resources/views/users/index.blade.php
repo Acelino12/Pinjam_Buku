@@ -9,8 +9,8 @@
 @section('content')
     <h3>User</h3>
     <br>
-    <a href="/newuser" class="btn btn-primary">tambah data</a>
-    <a href="/softdelete" class="btn btn-primary">Data terhapus</a>
+    <a href="users/newuser" class="btn btn-primary">tambah data</a>
+    <a href="users/softdelete" class="btn btn-primary">Data terhapus</a>
     <br>
     @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -52,8 +52,8 @@
                         @endif
                     </td>
                     <td>
-                        <a href="userdetails/{{$item->id}}">Detail</a>
-                        <a href="userdelete/{{$item->id}}">Delete</a>
+                        <a href="users/userdetails/{{$item->id}}">Detail</a>
+                        <a href="users/userdelete/{{$item->id}}">Delete</a>
                     </td>
                 </tr>
             @endforeach
