@@ -96,7 +96,7 @@ class RentalController extends Controller
                 $newNumber = $lastSequence + 1;
             }
 
-            $newSequence = str_pad($newNumber, 5, '0', STR_PAD_LEFT);
+            $newSequence = str_pad((string)$newNumber, 5, '0', STR_PAD_LEFT);
             $generatedCode = $prefix . $currentDate . '-' . $newSequence;
 
             if (!rental_orders::where('code_rent', $generatedCode)->exists()) {

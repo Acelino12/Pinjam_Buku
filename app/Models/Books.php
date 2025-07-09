@@ -37,7 +37,7 @@ class Books extends Model
     }
 
     // buku hanya memiliki banyak rent item
-    public function rental_item(): HasMany{
-        return $this->hasMany(rental_items::class);
+    public function rental_order(): HasMany{
+        return $this->hasMany(rental_orders::class);
     }
 }
