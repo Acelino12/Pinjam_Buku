@@ -27,12 +27,26 @@ class RentalController extends Controller
         ]);
     }
 
+    public function edit($id){
+        $data = rental_orders::with([
+            'user:id,name',
+            'books:id,title'
+            ])
+            ->select('id','user_id','books_id','status','rental_date','due_at','late_fee_per_week')
+            ->find($id);
+
+        return view('rental.edit-rental',['data' => $data]);
+    }
+
     public function rentaladd(Request $request){
         $iduser = $request->user_id;
         $bookid = $request->book_id;
 
+        // update book stok
+        $this->bookStok($bookid);
+
         $rentaldate = Carbon::now();
-        $due_at = $rentaldate->copy()->addDays(7) ;
+        $due_at = $rentaldate->copy()->addDays(7)->format('d-m-Y');
 
         $code_rent = $this->generateCode();
         $status = 'active';
@@ -47,6 +61,18 @@ class RentalController extends Controller
         ]);
 
         return redirect('/rental')->with('success','berhasil menambah data');
+    }
+
+    // update stok
+    private function bookStok($id){
+        $databuku = Books::find($id);
+        $databuku->stock_for_rent -= 1; // kurang satu
+        if ($databuku->stock_for_rent <= 0){
+            $databuku->stock_for_rent = 0;
+            $databuku->is_rentable = false;
+        }
+        $databuku->save();
+        return $databuku;
     }
 
     private function generateCode(){

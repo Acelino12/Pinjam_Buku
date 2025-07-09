@@ -80,6 +80,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/newrental', 'showinput');
         Route::post('/addrental','rentaladd');
         Route::get('/rentdetail/{id}','show');
+        Route::get('/rentupdate/{id}','edit');
+        Route::post('/rentupdate/update/{id}','update');
     });
 
     // Sales
