@@ -91,9 +91,9 @@
             </div>
 
             <div class="form-row">
-                <label for="place_of_birth">Tempat lahir :</label>
-                <input type="text" name="place_of_birth" id="place_of_birth" value="{{$rental->status}}" readonly>
-                @error('place_of_birth')
+                <label for="status">Status:</label>
+                <input type="text" name="status" id="status" value="{{$rental->status}}" readonly>
+                @error('status')
                     <p class='error-line'>{{$message}}</p>
                 @enderror
             </div>
