@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS Select2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-    <!-- JS Select2 -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <!-- ✅ Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- ✅ Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- ✅ (Opsional) Select2 Bootstrap 5 Theme -->
+    <link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.3.1/dist/select2-bootstrap4.min.css"
+        rel="stylesheet">
     <title>BukuKita | @yield('title')</title>
     <style>
         * {
@@ -146,6 +147,17 @@
 
 </head>
 
+<!-- ✅ jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- ✅ Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!-- ✅ (Opsional) Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+@yield('js')
+
 <body>
 
     <div class="sidebar" id="sidebar">
@@ -189,7 +201,5 @@
 
 
 </body>
-
-@yield('js')
 
 </html>
