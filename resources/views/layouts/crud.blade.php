@@ -37,7 +37,7 @@
             width: 100%;
             background-color: rgb(255, 255, 255);
             padding: 5px;
-            height: 20px;
+            height: 40px;
             border-radius: 5px;
         }
 
