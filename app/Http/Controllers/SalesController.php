@@ -12,4 +12,17 @@ class SalesController extends Controller
 
         return view('sales.index',['datasales'=> $datasales]);
     }
+
+    public function showInput(){
+        // user_id
+        // book_id
+        // code_purchase
+    }
+
+    public function store(){
+        // date hari ini sudah timestem 
+        // status pending
+        // payment_status (paid)
+        // total_amount
+    }
 }

@@ -17,8 +17,9 @@
         <thead>
             <tr>
                 <th>No</th>
+                <th>Code</th>
                 <th>Name</th>
-                <th>Date</th>
+                <th>Book</th>
                 <th>Status</th>
                 <th>Payment Status</th>
                 <th>Button</th>
@@ -28,8 +29,9 @@
             @foreach ($datasales as $item)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$item->name}}</td>
-                    <td>{{$item->purchase_date}}</td>
+                    <td>{{$item->code_purchase}}</td>
+                    <td>{{$item->user_id}}</td>
+                    <td>{{$item->book_id}}</td>
                     <td>{{$item->status}}</td>
                     <td>{{$item->payment_status}}</td>
                     <td>

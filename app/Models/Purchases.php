@@ -12,9 +12,9 @@ class Purchases extends Model
 
     protected $fillable = [
         'user_id',
-        'code_putchase',
+        'code_purchase',
         'putchase_date',
-        'total_amont',
+        'total_amount',
         'status',
         'payment_status',
         'shipping_address'

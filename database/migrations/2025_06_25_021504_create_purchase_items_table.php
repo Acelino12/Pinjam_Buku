@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('purchase_items', function (Blueprint $table) {
             $table->id();
-            $table->integer('purchase_id')->nullable(false)->constrained('purchases')->onDelete('restrict')->onUpdate('cascade');
+            $table->integer('purchase_id')->nullable()->constrained('purchases')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('book_id')->nullable(false)->constrained('books')->onDelete('restrict')->onUpdate('cascade');
             $table->integer('quantity')->nullable(false);
+            $table->integer('total_price')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });
