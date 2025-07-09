@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
     public function index(){
-        $datausers = Bookstore_users::all();
+        $datausers = Bookstore_users::select('id','name','email','code_user','can_buy','can_rent')->get();
 
         return view('users.index',['datausers'=>$datausers]);
     }

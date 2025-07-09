@@ -11,8 +11,9 @@ use Illuminate\Http\Request;
 class RentalController extends Controller
 {
     public function index(){
-        $datarental = rental_orders::with('user')->get();
-
+        $datarental = rental_orders::with('user:id,name')
+                    ->select('id','user_id','books_id','code_rent','due_at','status')
+                    ->get();
         return view('rental.index', ['datarental' => $datarental]);
     }
 
@@ -113,8 +114,14 @@ class RentalController extends Controller
     }
 
     public function show($id){
-        $rental = rental_orders::with(['user','books'])->find($id);
+        $rental = rental_orders::with([
+                'user:id,name,email,phone,address',
+                'books:id,title'
+            ])
+            ->select('id',"user_id","books_id","code_rent","rental_date","due_at","status")
+            ->find($id);
 
+        // dd($rental);
         return view('rental.detail-rental',['rental' => $rental]);
     }
 }

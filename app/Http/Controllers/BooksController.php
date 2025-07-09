@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class BooksController extends Controller
 {
     public function index(){
-        $books = Books::all();
+        $books = Books::select('id','title','code_book','is_saleable','is_rentable')->get();
 
         return view('books.index',['books' => $books]);
     }

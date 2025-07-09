@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class AuthorController extends Controller
 {
     public function index(){
-        $dataAuthors = Authors::all();
+        $dataAuthors = Authors::select('id','name','web_url')->get();
 
         return view('authors.index', ['dataAuthors' => $dataAuthors]);
     }

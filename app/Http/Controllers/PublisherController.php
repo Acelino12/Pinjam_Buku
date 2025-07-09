@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PublisherController extends Controller
 {
     public function index(){
-        $dataPublisher = Publishers::all();
+        $dataPublisher = Publishers::select('id','name','email','phone','web_url')->get();
         return view('publisher.index',['dataPublisher' => $dataPublisher]);
     }
 
