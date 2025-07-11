@@ -23,7 +23,6 @@
             font-family: Arial, sans-serif;
             display: flex;
             min-height: 100vh;
-            background-color: #f4f4f4;
         }
 
         /* Sidebar */
@@ -97,7 +96,6 @@
             padding: 1em;
             transition: margin-left 0.3s ease;
             border: 3px;
-            background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 2px black;
             margin: 1em;
@@ -108,6 +106,44 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .container-alert {
+            position: fixed;
+            /* Membuat elemen berada di atas alur dokumen normal */
+            top: 20px;
+            /* Jarak dari bagian atas viewport */
+            left: 50%;
+            /* Mulai dari tengah horizontal */
+            transform: translateX(-50%);
+            /* Geser ke kiri sebesar setengah lebarnya sendiri untuk penengahan sempurna */
+            z-index: 1000;
+            /* Pastikan alert berada di atas elemen lain */
+
+            /* Tambahkan properti lainnya untuk tata letak dan penampilan */
+            width: 100%;
+            /* Agar bisa mengisi lebar dan menengahkan isinya */
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
+            /* Penting: agar event klik mouse tembus ke elemen di bawahnya */
+        }
+
+        /* Style untuk alert itu sendiri (di dalam container-alert) */
+        .alert {
+            /* Pastikan alert tidak terlalu lebar */
+            max-width: 400px;
+            width: 90%;
+            /* Agar responsif di layar kecil */
+            padding: 15px 20px;
+            border-radius: 8px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            pointer-events: auto;
+            /* Aktifkan kembali event pointer untuk alert itu sendiri (tombol tutup) */
         }
 
         * Responsive tweaks */ @media (max-width: 768px) {
@@ -141,6 +177,17 @@
 </head>
 
 @yield('js')
+<script>
+    // JavaScript untuk menghilangkan alert secara otomatis
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertElement = document.getElementById('alert-message');
+        if (alertElement) {
+            setTimeout(() => {
+                alertElement.remove();
+            }, 3000); // Alert akan hilang setelah 3 detik
+        }
+    });
+</script>
 
 <body>
 
@@ -180,6 +227,13 @@
     </div>
 
     <main>
+        @if (Session::has('success'))
+            <div class="container-alert">
+                <div id="alert-message" class="alert" role="alert">
+                    <strong class="font-bold">{{Session::get('success')}}</strong>
+                </div>
+            </div>
+        @endif
         @yield('content')
     </main>
 
