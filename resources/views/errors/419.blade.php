@@ -12,6 +12,8 @@
 </head>
 <body>
     <h1>419</h1>
-    <p>aravel mendeteksi token CSRF tidak valid atau halaman kadaluarsa.</p>
+    <h3> mendeteksi token CSRF tidak valid</h3>
+    <h3>session habis login kembali kadaluarsa</h3>
+    <a href="/login">>>halaman Login<<</a>
 </body>
 </html>
