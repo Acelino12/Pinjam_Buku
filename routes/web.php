@@ -10,20 +10,8 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-
-// dashbord
-Route::get('/home', function () {
-    return view('layouts.app');
-})->middleware('auth');
-
 // auth
-Route::get('/', function () {
-    return view('auth.login');
-});
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
+Route::get('login', function () {return view('auth.login');})->name('login');
 Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'formRegister');
     Route::post('/postauth', 'register');
@@ -33,6 +21,10 @@ Route::controller(AuthController::class)->group(function () {
 
 
 Route::middleware('auth')->group(function () {
+
+    // dashboard
+    Route::get('/',function(){return view('layouts.app');});
+    Route::get('/home',function(){return view('layouts.app');});
 
     // Country
     Route::prefix('countrys')->controller(CountryController::class)->group(function () {
