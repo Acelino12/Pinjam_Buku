@@ -8,6 +8,7 @@ use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\UsersController;
+use App\Models\rental_orders;
 use Illuminate\Support\Facades\Route;
 
 // auth
@@ -18,12 +19,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/auth', 'login');
     Route::get('/logout', 'logout');
 });
-
+Route::get('/',function(){return view('auth.login');});
 
 Route::middleware('auth')->group(function () {
 
     // dashboard
-    Route::get('/',function(){return view('layouts.app');});
     Route::get('/home',function(){return view('layouts.app');});
 
     // Country
@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/newrental', 'showinput');
         Route::post('/addrental','rentaladd');
         Route::get('/rentdetail/{id}','show');
+        // Route::get('{id}/details','showAlert')->name('rental-orders.details');;
         Route::get('/rentupdate/{id}','edit');
         Route::post('/rentupdate/update/{id}','update');
     });
