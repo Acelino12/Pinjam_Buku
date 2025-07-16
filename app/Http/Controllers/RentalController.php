@@ -174,14 +174,14 @@ class RentalController extends Controller
         return view('rental.detail-rental', ['rental' => $rental]);
     }
 
-    public function showAlert(rental_orders $rentalOrder){
-        $userName = $rentalOrder->user ? $rentalOrder->user->name : 'N/A';
-        $rentalDate = $rentalOrder->rental_date ? Carbon::parse($rentalOrder->rental_date)->format('d F Y') : 'N/A';
+    // public function showAlert(rental_orders $rentalOrder){
+    //     $userName = $rentalOrder->user ? $rentalOrder->user->name : 'N/A';
+    //     $rentalDate = $rentalOrder->rental_date ? Carbon::parse($rentalOrder->rental_date)->format('d F Y') : 'N/A';
 
-        return response()->json([
-            'id' => $rentalOrder->id,
-            'user_name' => $userName,
-            'rental_date' => $rentalDate,
-        ]);
-    }
+    //     return response()->json([
+    //         'id' => $rentalOrder->id,
+    //         'user_name' => $userName,
+    //         'rental_date' => $rentalDate,
+    //     ]);
+    // }
 }
