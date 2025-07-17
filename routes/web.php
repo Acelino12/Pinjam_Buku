@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
     // Rental
     Route::prefix('/rental')->controller(RentalController::class)->group(function () {
         Route::get('/', 'index');
+        Route::get('/completed', 'showCompleted');
         Route::get('/newrental', 'showinput');
         Route::post('/addrental','rentaladd');
         Route::get('/rentdetail/{id}','show');
