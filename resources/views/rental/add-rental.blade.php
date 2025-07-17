@@ -45,7 +45,7 @@
                 <select name="book_id" id="book_id" class="form-select" required>
                     @foreach($books as $item)
                         <option value="{{ $item->id }}">
-                            {{ $item->title }}
+                            {{ $item->title }} ( {{$item->stock_for_rent}} )
                         </option>
                     @endforeach
                 </select>
