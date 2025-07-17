@@ -15,16 +15,17 @@ class RentalController extends Controller
     {
         $datarental = rental_orders::with('user:id,name')
             ->select('id', 'user_id', 'books_id', 'code_rent', 'due_at', 'status')
-            ->where('status','!=','completed')
+            ->where('status', '!=', 'completed')
             ->get();
         $view = false;
         return view('rental.index', ['datarental' => $datarental, 'view' => $view]);
     }
 
-    public function showCompleted(){
+    public function showCompleted()
+    {
         $datarental = rental_orders::with('user:id,name')
             ->select('id', 'user_id', 'books_id', 'code_rent', 'due_at', 'status')
-            ->where('status','=','completed')
+            ->where('status', '=', 'completed')
             ->get();
         $view = true;
 
@@ -79,14 +80,17 @@ class RentalController extends Controller
     {
         $status = $request->status;
         $dateNow = Carbon::createFromFormat('d-m-Y', $request->dateNow);
-
+        $fee = 0;
         if ($status == 'overdue') {
-            return view('books')->with([$id,$dateNow]);
+            return view('rental.payment')->with([$id, $dateNow]);
         } else {
+            $this->plusBook($request->book_id);
             rental_orders::where('id', $id)->update([
-                'returned_at'       => $dateNow
+                'returned_at'       => $dateNow,
+                'status'            => $status,
+                'total_late_fee'    => $fee
             ]);
-            return redirect('/rental');
+            return redirect('/rental')->with('success','Berhasil update data');
         };
     }
 
