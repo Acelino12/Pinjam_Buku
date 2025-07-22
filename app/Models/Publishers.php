@@ -22,7 +22,7 @@ class Publishers extends Model
 
     //publiser bisa memiliki 1 negara
     public function countries(): BelongsTo {
-        return $this->belongsTo(Countries::class);
+        return $this->belongsTo(Countries::class,'country_id');
     }
 
     // publiser dapat memiliki banyak buku

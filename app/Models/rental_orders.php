@@ -31,10 +31,10 @@ class rental_orders extends Model
 
     // rental order memiliki 1 user
     public function user():BelongsTo {
-        return $this->belongsTo(Bookstore_users::class);
+        return $this->belongsTo(Bookstore_users::class,'user_id');
     }
 
     public function books(): BelongsTo{
-        return $this->belongsTo(Books::class);
+        return $this->belongsTo(Books::class,'books_id');
     }
 }
