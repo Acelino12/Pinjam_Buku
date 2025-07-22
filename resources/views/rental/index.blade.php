@@ -77,7 +77,11 @@
                 <th>No</th>
                 <th>Code</th>
                 <th>Name</th>
-                <th>Jatuh Tempo</th>
+                @if ($view == true)
+                    <th>Pengembalian</th>
+                @else
+                    <th>Jatuh Tempo</th>
+                @endif
                 <th>Status</th>
                 <th>Button</th>
             </tr>
@@ -88,7 +92,11 @@
                     <td>{{$loop->iteration}}</td>
                     <td>{{$item->code_rent}}</td>
                     <td>{{$item->user->name}}</td>
-                    <td>{{$item->due_at->format('d-m-Y')}}</td>
+                    @if ($view == true)
+                        <td>{{$item->returned_at->format('d-m-Y')}}</td>
+                    @else
+                        <td>{{$item->due_at->format('d-m-Y')}}</td>
+                    @endif
                     <td>
                         @if ($item->status == 'active')
                             <div class="status" style="background-color: yellow;">{{$item->status}}</div>

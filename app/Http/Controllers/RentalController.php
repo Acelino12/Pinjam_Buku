@@ -16,6 +16,7 @@ class RentalController extends Controller
         $datarental = rental_orders::with('user:id,name')
             ->select('id', 'user_id', 'books_id', 'code_rent', 'due_at', 'status')
             ->where('status', '!=', 'completed')
+            ->orderBy('code_rent', 'ASC')
             ->get();
         $view = false;
         return view('rental.index', ['datarental' => $datarental, 'view' => $view]);
@@ -24,8 +25,9 @@ class RentalController extends Controller
     public function showCompleted()
     {
         $datarental = rental_orders::with('user:id,name')
-            ->select('id', 'user_id', 'books_id', 'code_rent', 'due_at', 'status')
+            ->select('id', 'user_id', 'books_id', 'code_rent', 'due_at', 'status', 'returned_at')
             ->where('status', '=', 'completed')
+            ->orderBy('returned_at', 'ASC')
             ->get();
         $view = true;
 
@@ -46,7 +48,7 @@ class RentalController extends Controller
 
     public function edit($id)
     {
-        $data = rental_orders::findOrFail($id);
+        $data = rental_orders::select('id', 'user_id', 'books_id', 'status', 'rental_date', 'due_at', 'total_late_fee', 'late_fee_per_week')->findOrFail($id);
 
         $dueat = Carbon::parse($data->due_at);
         $dateNow = Carbon::now();
@@ -57,8 +59,8 @@ class RentalController extends Controller
             if ($dateNow->greaterThan($dueat)) {
                 $late_days = (int) $dateNow->diffInDays($dueat) * -1;
                 $late_weeks = (int) ceil($late_days / 7); // 1-7 hari = 1 minggu, 8-14 = 2 minggu, dst
-                $fee = $late_weeks * 15000;
-                $status = ($late_weeks >= 1) ? 'overdue' : 'active'; // jika terlambar 1 hari akan overdue
+                $fee = $late_weeks * $data->late_fee_per_week;
+                $status = ($late_weeks > 0) ? 'overdue' : 'active'; // jika terlambar 1 hari akan overdue
 
                 $data->update([
                     'status'            => $status,
@@ -67,9 +69,7 @@ class RentalController extends Controller
             }
         }
 
-        $data->load(['user:id,name', 'books:id,title']) // Load relasi pada objek $data yang sudah ada
-            ->select('id', 'user_id', 'books_id', 'status', 'rental_date', 'due_at', 'late_fee_per_week')
-            ->findOrFail($id);
+        $data->load(['user:id,name', 'books:id,title']); // Load relasi pada objek $data yang sudah ada
 
         return view('rental.edit-rental', ['data' => $data, 'lateDays' => $late_days]);
     }
@@ -85,13 +85,16 @@ class RentalController extends Controller
         $dateNow = Carbon::createFromFormat('d-m-Y', $request->input('dateNow'));
         $fee = 0;
 
-        $this->plusBook($request->input('book_id'));
-        rental_orders::where('id', $id)->update([
-            'returned_at'       => $dateNow,
-            'status'            => $status,
-            'total_late_fee'    => $fee
-        ]);
-        return redirect('/rental')->with('success', 'Berhasil update data');
+        if ($status == 'completed') {
+            $this->plusBook($request->input('book_id'));
+            rental_orders::where('id', $id)->update([
+                'returned_at'       => $dateNow,
+                'status'            => $status,
+                'total_late_fee'    => $fee
+            ]);
+            return redirect('/rental')->with('success', 'Berhasil update data');
+        }
+        return redirect('/rental');
     }
 
     public function checkPay(Request $request, $id)
@@ -105,7 +108,7 @@ class RentalController extends Controller
             'user:id,name,email,phone,address',
             'books:id,title,book_cover'
         )->findOrFail($id);
-        return view('rental.payment', ['dataRent' => $dataRent , 'lateDays' => $lateDays]);
+        return view('rental.payment', ['dataRent' => $dataRent, 'lateDays' => $lateDays]);
     }
 
     public function rentaladd(Request $request)

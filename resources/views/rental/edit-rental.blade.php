@@ -96,7 +96,7 @@
             @if ($lateDays > 0)
                 <div class="mb-3">
                     <label for="" class="form-label">Denda keterlambatan:</label>
-                    <input type="text" name="" id="" class="form-control" value="Rp. {{$data->late_fee_per_week}}" readonly>
+                    <input type="text" name="" id="" class="form-control" value="Rp. {{$data->total_late_fee}}" readonly>
                 </div>
             @endif
             <button class="btn btn-success" type="submit">
