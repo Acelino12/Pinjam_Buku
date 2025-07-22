@@ -46,10 +46,10 @@ class RentalController extends Controller
 
     public function edit($id)
     {
-        $data = rental_orders::find($id);
+        $data = rental_orders::findOrFail($id);
 
         $dueat = Carbon::parse($data->due_at);
-        $dateNow = Carbon::parse(now());
+        $dateNow = Carbon::now();
 
         $late_days = 0; // Inisialisasi untuk menghindari variabel tidak terdefinisi jika kondisi salah
 
@@ -58,46 +58,66 @@ class RentalController extends Controller
                 $late_days = (int) $dateNow->diffInDays($dueat) * -1;
                 $late_weeks = (int) ceil($late_days / 7); // 1-7 hari = 1 minggu, 8-14 = 2 minggu, dst
                 $fee = $late_weeks * 15000;
-                $status = 'overdue';
-                rental_orders::where('id', $id)->update([
+                $status = ($late_weeks >= 1) ? 'overdue' : 'active'; // jika terlambar 1 hari akan overdue
+
+                $data->update([
                     'status'            => $status,
                     'total_late_fee'    => $fee,
                 ]);
             }
         }
 
-        $datenew = rental_orders::with([
-            'user:id,name',
-            'books:id,title'
-        ])
+        $data->load(['user:id,name', 'books:id,title']) // Load relasi pada objek $data yang sudah ada
             ->select('id', 'user_id', 'books_id', 'status', 'rental_date', 'due_at', 'late_fee_per_week')
-            ->find($id);
+            ->findOrFail($id);
 
-        return view('rental.edit-rental', ['data' => $datenew, 'lateDays' => $late_days]);
+        return view('rental.edit-rental', ['data' => $data, 'lateDays' => $late_days]);
     }
 
     public function update(Request $request, $id)
     {
-        $status = $request->status;
-        $dateNow = Carbon::createFromFormat('d-m-Y', $request->dateNow);
+        $validation = $request->validate([
+            'status' => 'required|string',
+            'book_id' => 'required|exists:books,id'
+        ]);
+
+        $status = $request->input('status');
+        $dateNow = Carbon::createFromFormat('d-m-Y', $request->input('dateNow'));
         $fee = 0;
-        if ($status == 'overdue') {
-            return view('rental.payment')->with([$id, $dateNow]);
-        } else {
-            $this->plusBook($request->book_id);
-            rental_orders::where('id', $id)->update([
-                'returned_at'       => $dateNow,
-                'status'            => $status,
-                'total_late_fee'    => $fee
-            ]);
-            return redirect('/rental')->with('success','Berhasil update data');
-        };
+
+        $this->plusBook($request->input('book_id'));
+        rental_orders::where('id', $id)->update([
+            'returned_at'       => $dateNow,
+            'status'            => $status,
+            'total_late_fee'    => $fee
+        ]);
+        return redirect('/rental')->with('success', 'Berhasil update data');
+    }
+
+    public function checkPay(Request $request, $id)
+    {
+        $request->validate([
+            'lateStatus' => 'required|string'
+        ]);
+
+        $lateDays = $request->input('lateStatus');
+        $dataRent = rental_orders::with(
+            'user:id,name,email,phone,address',
+            'books:id,title,book_cover'
+        )->findOrFail($id);
+        return view('rental.payment', ['dataRent' => $dataRent , 'lateDays' => $lateDays]);
     }
 
     public function rentaladd(Request $request)
     {
+
+        $validate = $request->validate([
+            'user_id' => 'required|exists:bookstore_users,id',
+            'book_id' => 'required|exists:books,id',
+        ]);
+
         // update book stok
-        $this->minBook($request->book_id);
+        $this->minBook($validate['book_id']);
 
         $rentaldate = Carbon::now();
         $due_at = $rentaldate->copy()->addDays(7)->format('d-m-Y');
@@ -106,8 +126,8 @@ class RentalController extends Controller
         $status = 'active';
 
         rental_orders::create([
-            'user_id'       => $request->user_id,
-            'books_id'      => $request->book_id,
+            'user_id'       => $validate['user_id'],
+            'books_id'      => $validate['book_id'],
             'rental_date'   => $rentaldate,
             'due_at'        => $due_at,
             'code_rent'     => $code_rent,
@@ -120,7 +140,7 @@ class RentalController extends Controller
     // minus stok book
     private function minBook($id)
     {
-        $databuku = Books::find($id);
+        $databuku = Books::findOrFail($id);
         $databuku->stock_for_rent -= 1; // kurang satu
         if ($databuku->stock_for_rent <= 0) {
             $databuku->stock_for_rent = 0;
@@ -134,7 +154,7 @@ class RentalController extends Controller
 
     private function plusBook($id)
     {
-        $dataBuku = Books::find($id);
+        $dataBuku = Books::findOrFail($id);
         $dataBuku->stock_for_rent += 1;
         if ($dataBuku->stock_for_rent > 0) {
             $dataBuku->is_rentable = true;
@@ -188,7 +208,7 @@ class RentalController extends Controller
             'books:id,title'
         ])
             ->select('id', "user_id", "books_id", "code_rent", "rental_date", "due_at", "status")
-            ->find($id);
+            ->findOrFail($id);
 
         // dd($rental);
         return view('rental.detail-rental', ['rental' => $rental]);
