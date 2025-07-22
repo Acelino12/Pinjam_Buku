@@ -13,13 +13,9 @@ class BooksControllerApi extends Controller
      */
     public function index()
     {
-        $dataBook = Books::all()->map(function($book){
-            return [
-                'id' => $book->id,
-                'title' => $book->title,
-                'code_book' => $book->code_book,
-            ];
-        });
+        $dataBook = Books::with(['authors:id,name','publisher:id,name'])
+            ->select(['id','title','code_book','author_id','publisher'])
+            ->get();
 
         return response()->json([
             'success' => true,
