@@ -12,19 +12,25 @@ use App\Models\rental_orders;
 use Illuminate\Support\Facades\Route;
 
 // auth
-Route::get('login', function () {return view('auth.login');})->name('login');
+Route::get('login', function () {
+    return view('auth.login');
+})->name('login');
 Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'formRegister');
     Route::post('/postauth', 'register');
     Route::get('/auth', 'login');
     Route::get('/logout', 'logout');
 });
-Route::get('/',function(){return view('auth.login');});
 
 Route::middleware('auth')->group(function () {
 
     // dashboard
-    Route::get('/home',function(){return view('layouts.app');});
+    Route::get('/', function () {
+        return view('layouts.app');
+    });
+    Route::get('/home', function () {
+        return view('layouts.app');
+    });
 
     // Country
     Route::prefix('countrys')->controller(CountryController::class)->group(function () {
@@ -71,11 +77,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'index');
         Route::get('/completed', 'showCompleted');
         Route::get('/newrental', 'showinput');
-        Route::post('/addrental','rentaladd');
-        Route::get('/rentdetail/{id}','show');
+        Route::post('/addrental', 'rentaladd');
+        Route::get('/rentdetail/{id}', 'show');
         // Route::get('{id}/details','showAlert')->name('rental-orders.details');;
-        Route::get('/rentupdate/{id}','edit');
-        Route::post('/rentupdate/update/{id}','update');
+        Route::get('/rentupdate/{id}', 'edit');
+        Route::post('/rentupdate/update/{id}', 'update');
+        Route::post('/rentupdate/rentpayment/{id}', 'checkPay');
     });
 
     // Sales
@@ -84,6 +91,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/newsales', function () {
             return view('sales.add-sales');
         });
-        Route::post('/addsales','store');
+        Route::post('/addsales', 'store');
     });
 });
