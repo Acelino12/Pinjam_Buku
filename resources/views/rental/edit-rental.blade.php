@@ -21,9 +21,14 @@
     <h3>Edit Rental</h3>
 
     <div class="container">
-        <form action="update/{{$data->id}}" method="POST">
+        <form 
+        @if ($data->status != 'overdue')
+            action="update/{{$data->id}}" 
+        @else
+            action="rentpayment/{{$data->id}}" 
+        @endif
+        method="POST">
             @csrf
-
             <div class="mb-3">
                 <label for="user_id" class="form-label">Pengguna:</label>
                 <input type="text" name="user_id" id="user_id" value="{{$data->user->name}}" readonly>
