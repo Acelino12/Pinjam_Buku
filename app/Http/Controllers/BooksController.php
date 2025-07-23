@@ -31,6 +31,13 @@ class BooksController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255|string',
+            'author_id' => 'required|exists:authors,id',
+            'publisher' => 'required|exists:publishers,id',
+            'description' => 'required|string',
+            'stock_for_sale' => 'required|integer|min:0',
+            'sale_price' => 'required|numeric|min:0',
+            'stock_for_rent' => 'required|integer|min:0',
+            'pages' => 'required|integer|min:1',
         ]);
 
         if ($request->stock_for_sale > 0) {
