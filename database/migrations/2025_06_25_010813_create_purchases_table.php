@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable(false)->constrained('bookstore_user')->onDelete('restrict')->onUpdate('cascade');
-            $table->string('code_purchase',20)->nullable(false)->unique();
+            $table->string('code_purchase', 20)->nullable(false)->unique();
             $table->date('purchase_date')->nullable();
-            $table->decimal('total_amount',10)->nullable();
-            $table->enum('status',['pending','completed','cancelled','shipped']);
-            $table->enum('payment_status',['paid','unpaid','refunded']);
-            $table->string('shipping_address',255);
+            $table->decimal('total_amount', 10)->nullable();
+            $table->enum('status', ['pending', 'completed', 'cancelled', 'shipped']);
+            $table->enum('payment_status', ['paid', 'unpaid', 'refunded']);
+            $table->string('shipping_address', 255);
             $table->timestamps();
             $table->softDeletes();
         });

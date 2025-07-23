@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Bookstore_users;
-
 return [
 
     /*
@@ -48,7 +46,7 @@ return [
         ],
         'api' => [ // Guard untuk BookstoreUser (pengguna API)
             'driver' => 'token', // Atau 'sanctum' jika Anda menggunakan Laravel Sanctum
-            'provider' => 'bookstore_users'
+            'provider' => 'bookstore_users',
         ],
     ],
 
@@ -74,15 +72,18 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Admins::class),
         ],
-        'bookstore_user' =>[
+        'bookstore_user' => [
             'driver' => 'eloquent',
-            'model'=> env('AUTH_MODEL', App\Models\Bookstore_users::class)
+            'model' => env('AUTH_MODEL', App\Models\Bookstore_users::class),
         ],
 
-        // 'admins' => [
-        //     'driver' => 'database',
-        //     'table' => 'admins',
-        // ],
+        /*
+        |   'admins' => [
+        |   'driver' => 'database',
+        |   'table' => 'admins',
+        |   ],
+        |
+        */
     ],
 
     /*
@@ -107,13 +108,13 @@ return [
     'passwords' => [
         'admins' => [ // Konfigurasi reset password untuk Admin
             'provider' => 'admins',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_admin_reset_tokens'),//pastikan sama dengan migrasi
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_admin_reset_tokens'), // pastikan sama dengan migrasi
             'expire' => 60,
             'throttle' => 60,
         ],
         'bookstore_users' => [ // Konfigurasi reset password untuk user
             'provider' => 'admins',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_user_reset_tokens'), //pastikan sama dengan migrasi
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_user_reset_tokens'), // pastikan sama dengan migrasi
             'expire' => 60,
             'throttle' => 60,
         ],

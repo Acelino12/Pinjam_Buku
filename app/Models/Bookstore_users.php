@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // impor Authenticatable dari Laravel's Auth User base class
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Bookstore_users extends Authenticatable
 {
@@ -15,7 +15,7 @@ class Bookstore_users extends Authenticatable
     use SoftDeletes;
 
     protected $dates = [
-        'deleted_at'
+        'deleted_at',
     ];
 
     protected $fillable = [
@@ -35,19 +35,19 @@ class Bookstore_users extends Authenticatable
         'can_rent',
     ];
 
-    protected $hidden =[
+    protected $hidden = [
         'password',
-        'remember_token'
+        'remember_token',
     ];
 
-    protected $casts =[
-        'date_of_birth' => 'date'
+    protected $casts = [
+        'date_of_birth' => 'date',
     ];
 
-     // Relasi: User milik satu Country
+    // Relasi: User milik satu Country
     public function countries(): BelongsTo
     {
-        return $this->belongsTo(Countries::class,'country_id');
+        return $this->belongsTo(Countries::class, 'country_id');
     }
 
     // Relasi: User memiliki banyak Purchases
@@ -61,5 +61,4 @@ class Bookstore_users extends Authenticatable
     {
         return $this->hasMany(rental_orders::class, 'user_id'); // Pastikan FK sesuai
     }
-
 }

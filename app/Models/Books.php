@@ -23,21 +23,24 @@ class Books extends Model
         'is_rentable',
         'stock_for_rent',
         'book_cover',
-        'pages'
+        'pages',
     ];
 
     // buku hanya memiliki 1 author
-    public function authors(): BelongsTo {
-        return $this->belongsTo(Authors::class,'author_id','id');
+    public function authors(): BelongsTo
+    {
+        return $this->belongsTo(Authors::class, 'author_id', 'id');
     }
 
     // buku hanya memiliki 1 publiser
-    public function publisher(): BelongsTo{
-        return $this->belongsTo(Publishers::class,'publisher','id');
+    public function publisher(): BelongsTo
+    {
+        return $this->belongsTo(Publishers::class, 'publisher', 'id');
     }
 
     // buku hanya memiliki banyak rent item
-    public function rental_order(): HasMany{
-        return $this->hasMany(rental_orders::class,);
+    public function rental_order(): HasMany
+    {
+        return $this->hasMany(rental_orders::class);
     }
 }

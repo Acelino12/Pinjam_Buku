@@ -7,29 +7,33 @@ use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $country = Countries::all();
 
-        return view('feature.country',['country' => $country]);
+        return view('feature.country', ['country' => $country]);
     }
 
-    public function input(){
+    public function input()
+    {
         return view('feature.add-country');
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $request->validate([
-            'name' => 'required|max:100'
+            'name' => 'required|max:100',
         ]);
 
         Countries::create([
             'name' => $request->name,
         ]);
 
-        return redirect('/countrys')->with('success','berhasil menambahkan Negara');
+        return redirect('/countrys')->with('success', 'berhasil menambahkan Negara');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $data = Countries::find($id);
         $data->delete();
 

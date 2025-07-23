@@ -13,16 +13,18 @@ class Purchase_items extends Model
     protected $fillable = [
         'purchase_id',
         'book_id',
-        'quantity'
+        'quantity',
     ];
 
     // purchase item hanya milik 1 buku
-    public function books(): BelongsTo {
+    public function books(): BelongsTo
+    {
         return $this->belongsTo(Books::class);
     }
 
-    // purchase item hanya milik satu purchase 
-    public function purchase(): BelongsTo{
-        return $this->belongsTo(Purchases::class) ;
+    // purchase item hanya milik satu purchase
+    public function purchase(): BelongsTo
+    {
+        return $this->belongsTo(Purchases::class);
     }
 }

@@ -17,16 +17,18 @@ class Publishers extends Model
         'country_id',
         'phone',
         'email',
-        'web_url'
+        'web_url',
     ];
 
-    //publiser bisa memiliki 1 negara
-    public function countries(): BelongsTo {
-        return $this->belongsTo(Countries::class,'country_id');
+    // publiser bisa memiliki 1 negara
+    public function countries(): BelongsTo
+    {
+        return $this->belongsTo(Countries::class, 'country_id');
     }
 
     // publiser dapat memiliki banyak buku
-    public function books(): HasMany{
+    public function books(): HasMany
+    {
         return $this->hasMany(Books::class);
     }
 }

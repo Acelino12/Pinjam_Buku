@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable; // impor Authenticatable dari Laravel's Auth User base class
 use Illuminate\Notifications\Notifiable;
-// impor Authenticatable dari Laravel's Auth User base class
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admins extends Authenticatable
 {
@@ -14,10 +13,11 @@ class Admins extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password'];
+        'password',
+    ];
 
     protected $hidden = [
         'password',
-        'remember_token'
+        'remember_token',
     ];
 }

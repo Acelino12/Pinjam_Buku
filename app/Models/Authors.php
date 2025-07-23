@@ -19,18 +19,19 @@ class Authors extends Model
         'web_url',
     ];
 
-    protected $casts =[
-        'date_of_birth' => 'date'
+    protected $casts = [
+        'date_of_birth' => 'date',
     ];
 
-    //author hanya memiliki 1 negara
-    public function countries() : BelongsTo {
+    // author hanya memiliki 1 negara
+    public function countries(): BelongsTo
+    {
         return $this->belongsTo(Countries::class);
     }
 
     // author memiliki banyak buku
-    public function books(): HasMany {
+    public function books(): HasMany
+    {
         return $this->hasMany(Books::class);
     }
-    
 }

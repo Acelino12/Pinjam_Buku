@@ -7,7 +7,6 @@ use App\Models\Bookstore_users;
 use App\Models\rental_orders;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Type\Integer;
 
 class RentalController extends Controller
 {
@@ -19,6 +18,7 @@ class RentalController extends Controller
             ->orderBy('code_rent', 'ASC')
             ->get();
         $view = false;
+
         return view('rental.index', ['datarental' => $datarental, 'view' => $view]);
     }
 
@@ -39,10 +39,11 @@ class RentalController extends Controller
         $users = Bookstore_users::where('can_rent', true)->select('id', 'name')->get();
         $books = Books::where('is_rentable', true)->select('id', 'title', 'stock_for_rent')->get();
         $date = date('d-m-Y');
+
         return view('rental.add-rental', [
             'users' => $users,
-            'date'  => $date,
-            'books' => $books
+            'date' => $date,
+            'books' => $books,
         ]);
     }
 
@@ -63,8 +64,8 @@ class RentalController extends Controller
                 $status = ($late_weeks > 0) ? 'overdue' : 'active'; // jika terlambar 1 hari akan overdue
 
                 $data->update([
-                    'status'            => $status,
-                    'total_late_fee'    => $fee,
+                    'status' => $status,
+                    'total_late_fee' => $fee,
                 ]);
             }
         }
@@ -76,9 +77,9 @@ class RentalController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validation = $request->validate([
+        $request->validate([
             'status' => 'required|string',
-            'book_id' => 'required|exists:books,id'
+            'book_id' => 'required|exists:books,id',
         ]);
 
         $status = $request->input('status');
@@ -88,19 +89,21 @@ class RentalController extends Controller
         if ($status == 'completed') {
             $this->plusBook($request->input('book_id'));
             rental_orders::where('id', $id)->update([
-                'returned_at'       => $dateNow,
-                'status'            => $status,
-                'total_late_fee'    => $fee
+                'returned_at' => $dateNow,
+                'status' => $status,
+                'total_late_fee' => $fee,
             ]);
+
             return redirect('/rental')->with('success', 'Berhasil update data');
         }
+
         return redirect('/rental');
     }
 
     public function checkPay(Request $request, $id)
     {
         $request->validate([
-            'lateStatus' => 'required|string'
+            'lateStatus' => 'required|string',
         ]);
 
         $lateDays = $request->input('lateStatus');
@@ -108,6 +111,7 @@ class RentalController extends Controller
             'user:id,name,email,phone,address',
             'books:id,title,book_cover'
         )->findOrFail($id);
+
         return view('rental.payment', ['dataRent' => $dataRent, 'lateDays' => $lateDays]);
     }
 
@@ -129,12 +133,12 @@ class RentalController extends Controller
         $status = 'active';
 
         rental_orders::create([
-            'user_id'       => $validate['user_id'],
-            'books_id'      => $validate['book_id'],
-            'rental_date'   => $rentaldate,
-            'due_at'        => $due_at,
-            'code_rent'     => $code_rent,
-            'status'        => $status
+            'user_id' => $validate['user_id'],
+            'books_id' => $validate['book_id'],
+            'rental_date' => $rentaldate,
+            'due_at' => $due_at,
+            'code_rent' => $code_rent,
+            'status' => $status,
         ]);
 
         return redirect('/rental')->with('success', 'berhasil menambah data');
@@ -150,6 +154,7 @@ class RentalController extends Controller
             $databuku->is_rentable = false;
         }
         $databuku->save();
+
         return $databuku;
     }
 
@@ -163,6 +168,7 @@ class RentalController extends Controller
             $dataBuku->is_rentable = true;
         }
         $dataBuku->save();
+
         return $dataBuku;
     }
 
@@ -171,13 +177,13 @@ class RentalController extends Controller
         // Asumsi format: RNT-YYYYMMDD-NNNNN
         $prefix = 'RNT-';
         $currentDate = Carbon::now()->format('Ymd');
-        $searchPattern = $prefix . $currentDate . '%';
+        $searchPattern = $prefix.$currentDate.'%';
 
         $generatedCode = '';
         $isUnique = false;
         $attempt = 0;
 
-        while (!$isUnique && $attempt < 10) { // Batasi percobaan
+        while (! $isUnique && $attempt < 10) { // Batasi percobaan
             $lastCode = rental_orders::where('code_rent', 'like', $searchPattern)
                 ->orderBy('code_rent', 'desc')
                 ->first();
@@ -188,17 +194,17 @@ class RentalController extends Controller
                 $newNumber = $lastSequence + 1;
             }
 
-            $newSequence = str_pad((string)$newNumber, 5, '0', STR_PAD_LEFT);
-            $generatedCode = $prefix . $currentDate . '-' . $newSequence;
+            $newSequence = str_pad((string) $newNumber, 5, '0', STR_PAD_LEFT);
+            $generatedCode = $prefix.$currentDate.'-'.$newSequence;
 
-            if (!rental_orders::where('code_rent', $generatedCode)->exists()) {
+            if (! rental_orders::where('code_rent', $generatedCode)->exists()) {
                 $isUnique = true;
             }
             $attempt++;
         }
 
-        if (!$isUnique) {
-            throw new \Exception("Gagal menggenerasi kode sewa unik setelah beberapa percobaan.");
+        if (! $isUnique) {
+            throw new \Exception('Gagal menggenerasi kode sewa unik setelah beberapa percobaan.');
         }
 
         return $generatedCode;
@@ -208,9 +214,9 @@ class RentalController extends Controller
     {
         $rental = rental_orders::with([
             'user:id,name,email,phone,address',
-            'books:id,title'
+            'books:id,title',
         ])
-            ->select('id', "user_id", "books_id", "code_rent", "rental_date", "due_at", "status")
+            ->select('id', 'user_id', 'books_id', 'code_rent', 'rental_date', 'due_at', 'status')
             ->findOrFail($id);
 
         // dd($rental);

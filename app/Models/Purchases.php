@@ -17,11 +17,12 @@ class Purchases extends Model
         'total_amount',
         'status',
         'payment_status',
-        'shipping_address'
+        'shipping_address',
     ];
 
     // purchase hanya dimiliki satu user
-    public function users(): BelongsTo{
+    public function users(): BelongsTo
+    {
         return $this->belongsTo(Bookstore_users::class);
     }
 }

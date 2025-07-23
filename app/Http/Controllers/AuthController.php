@@ -10,36 +10,39 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-
-    public function formRegister(){
+    public function formRegister()
+    {
         $country = Countries::all();
 
-        return view('auth.register',['listcountry' => $country]);
+        return view('auth.register', ['listcountry' => $country]);
     }
 
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $request->validate([
-            'name'      => 'required|max:255|string',
-            'email'     => 'required|email|unique:admins,email',
-            'password'  => 'required|min:6|confirmed',
+            'name' => 'required|max:255|string',
+            'email' => 'required|email|unique:admins,email',
+            'password' => 'required|min:6|confirmed',
         ]);
         Admins::create([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => Hash::make($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        return redirect('/login')->with('success','berhasil register');
+        return redirect('/login')->with('success', 'berhasil register');
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $validasi = $request->validate([
-            'email'      => 'required|email',
-            'password'  => 'required'
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        if (Auth::attempt($validasi)){
+        if (Auth::attempt($validasi)) {
             $request->session()->regenerate();
+
             return redirect()->intended('/home');
         }
 
@@ -48,11 +51,13 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login') ;
+
+        return redirect('/login');
     }
 }

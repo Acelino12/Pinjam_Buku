@@ -8,7 +8,6 @@ use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\UsersController;
-use App\Models\rental_orders;
 use Illuminate\Support\Facades\Route;
 
 // auth
@@ -42,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
     // input users
     Route::prefix('users')->controller(UsersController::class)->group(function () {
-        Route::get('/', 'index'); //all users
+        Route::get('/', 'index'); // all users
         Route::get('/newuser', 'showinput'); // menampilkan daftar negara
         Route::post('/adduser', 'store');
         Route::get('/userdetails/{id}', 'show');

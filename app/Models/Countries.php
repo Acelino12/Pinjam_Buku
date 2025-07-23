@@ -12,15 +12,18 @@ class Countries extends Model
 
     protected $fillable = ['name'];
 
-    public function users(): HasMany{
+    public function users(): HasMany
+    {
         return $this->hasMany(Bookstore_users::class);
     }
 
-    public function countries(): HasMany{
+    public function countries(): HasMany
+    {
         return $this->hasMany(Authors::class);
     }
 
-    public function publisher(): HasMany{
+    public function publisher(): HasMany
+    {
         return $this->hasMany(Publishers::class);
     }
 }

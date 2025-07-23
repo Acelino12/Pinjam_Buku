@@ -8,18 +8,22 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
-    public function index(){
-        $dataAuthors = Authors::select('id','name','web_url')->get();
+    public function index()
+    {
+        $dataAuthors = Authors::select('id', 'name', 'web_url')->get();
 
         return view('authors.index', ['dataAuthors' => $dataAuthors]);
     }
 
-    public function showinput(){
+    public function showinput()
+    {
         $country = Countries::all();
-        return view('authors.add-author',['country' => $country]);
+
+        return view('authors.add-author', ['country' => $country]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required|max:255',
             'bio' => 'required',
@@ -33,9 +37,9 @@ class AuthorController extends Controller
             'bio' => $request->bio,
             'date_of_birth' => $request->date_of_birth,
             'country_id' => $request->country_id,
-            'web_url' => $request->web_url
+            'web_url' => $request->web_url,
         ]);
 
-        return redirect('/authors')->with(['success','berhasil menambah author']);
+        return redirect('/authors')->with(['success', 'berhasil menambah author']);
     }
 }

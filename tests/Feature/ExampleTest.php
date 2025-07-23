@@ -14,7 +14,6 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        
         $response->assertStatus(302); // Menguji status code 302
         $response->assertRedirect('/login'); // Menguji bahwa dialihkan ke /login (sesuaikan jika berbeda)
     }

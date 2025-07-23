@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('publishers', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255)->nullable(false);
-            $table->string('address',255)->nullable();
+            $table->string('name', 255)->nullable(false);
+            $table->string('address', 255)->nullable();
             $table->integer('country_id')->nullable()->constrained('countries')->onDelete('restrict')->onUpdate('cascade');
-            $table->string('phone',20)->nullable();
-            $table->string('email',255)->nullable();
-            $table->string('web_url',255)->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('email', 255)->nullable();
+            $table->string('web_url', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

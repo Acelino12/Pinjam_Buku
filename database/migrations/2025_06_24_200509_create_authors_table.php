@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255)->nullable(false);
+            $table->string('name', 255)->nullable(false);
             $table->text('bio')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->integer('country_id')->nullable()->constrained('countries')->onDelete('restrict')->onUpdate('cascade');
-            $table->string('web_url',255)->nullable();
+            $table->string('web_url', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

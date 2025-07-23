@@ -13,15 +13,15 @@ class BooksControllerApi extends Controller
      */
     public function index()
     {
-        $dataBook = Books::with(['authors:id,name','publisher:id,name'])
-            ->select(['id','title','code_book','author_id','publisher'])
+        $dataBook = Books::with(['authors:id,name', 'publisher:id,name'])
+            ->select(['id', 'title', 'code_book', 'author_id', 'publisher'])
             ->get();
 
         return response()->json([
             'success' => true,
             'message' => 'berhasil ambil data',
-            'data' => $dataBook
-        ],200);
+            'data' => $dataBook,
+        ], 200);
     }
 
     /**

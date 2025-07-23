@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\BooksControllerApi as ApiBooksController; // Pastikan namespace controller benar (memberi alias)
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\BooksControllerApi as ApiBooksController; // Pastikan namespace controller benar (memberi alias)
 
 /*
 |--------------------------------------------------------------------------
