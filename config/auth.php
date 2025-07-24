@@ -38,15 +38,15 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'admins',
+            'provider' => 'admins', // biasanya megarah ketabel users
         ],
         'admins' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
         'api' => [ // Guard untuk BookstoreUser (pengguna API)
-            'driver' => 'token', // Atau 'sanctum' jika Anda menggunakan Laravel Sanctum
-            'provider' => 'bookstore_users',
+            'driver' => 'sanctum', // token Atau 'sanctum' jika menggunakan Laravel Sanctum
+            'provider' => 'bookstore_user_provider',
         ],
     ],
 
@@ -70,9 +70,9 @@ return [
     'providers' => [
         'admins' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Admins::class),
+            'model' => env('AUTH_MODEL', App\Models\Admins::class), // biasanya mengarah ke model user
         ],
-        'bookstore_user' => [
+        'bookstore_user_provider' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Bookstore_users::class),
         ],
