@@ -31,7 +31,7 @@ class UsersController extends Controller
             'email' => 'required|email|unique:bookstore_users,email',
             'date_of_birth' => 'required',
             'gender' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|max:20',
             'country_id' => 'required',
         ]);
 
