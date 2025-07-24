@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class Bookstore_users extends Authenticatable
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $dates = [
         'deleted_at',
@@ -42,6 +43,9 @@ class Bookstore_users extends Authenticatable
 
     protected $casts = [
         'date_of_birth' => 'date',
+        'password' => 'hashed',
+        'can_buy' => 'boolean', // Penting untuk memastikan tipe boolean
+        'can_rent' => 'boolean', // Penting untuk memastikan tipe boolean
     ];
 
     // Relasi: User milik satu Country
