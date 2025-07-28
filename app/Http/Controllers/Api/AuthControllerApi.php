@@ -18,7 +18,7 @@ class AuthControllerApi extends Controller
 
         try {
             $request->validate([
-                'name' => 'required|string|max:255',
+                'nama' => 'required|string|max:255',
                 'email' => 'required|max:100|email|unique:bookstore_users,email',
                 'password' => 'required|min:6|confirmed',
                 'date_of_birth' => 'required|date',
@@ -33,7 +33,7 @@ class AuthControllerApi extends Controller
             $codeUser = $this->generatedCode();
 
             $user = Bookstore_users::create([
-                'name' => $request->name,
+                'name' => $request->nama,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'date_of_birth' => $request->date_of_birth,
