@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\SalesController;
@@ -24,11 +25,10 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware('auth')->group(function () {
 
     // dashboard
-    Route::get('/', function () {
-        return view('layouts.app');
-    });
-    Route::get('/home', function () {
-        return view('layouts.app');
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/home', 'index');
+        Route::get('/dashboard', 'index');
     });
 
     // Country
@@ -91,5 +91,10 @@ Route::middleware('auth')->group(function () {
             return view('sales.add-sales');
         });
         Route::post('/addsales', 'store');
+    });
+
+    // setting
+    Route::get('setting', function () {
+        return view('setting.index');
     });
 });
