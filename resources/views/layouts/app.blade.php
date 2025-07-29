@@ -202,15 +202,14 @@
             @endif
 
             <li><a href="{{url('/home')}}">Dashboard</a></li>
-            <li><a href="{{url('/sales')}}">Sales</a></li>
+            {{-- <li><a href="{{url('/sales')}}">Sales</a></li> --}}
             <li><a href="{{url("/rental")}}">Rental</a></li>
             <li><a href="{{url("/users")}}">Users</a></li>
-            <li><a href="{{url('/profil')}}">Profil</a></li>
             <li><a href="{{url('/books')}}">Books</a></li>
             <li><a href="{{url('/authors')}}">Authors</a></li>
             <li><a href="{{url('/publishers')}}">Publishers</a></li>
             <li><a href="{{url('/countrys')}}">Country</a></li>
-            <li><a href="{{url('/setting')}}">Pengaturan</a></li>
+            <li><a href="{{url('/setting')}}">Setting</a></li>
             <li><a href="{{url('/logout')}}">logout</a></li>
             {{-- <li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
