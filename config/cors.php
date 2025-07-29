@@ -18,7 +18,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000'], // <-- UBAH INI!
+    'allowed_origins' => ['*'], // <-- UBAH INI!
     // Jika Anda akan deploy ke domain lain, tambahkan domain tersebut di sini:
     // 'allowed_origins' => ['http://localhost:3000', 'https://your-nextjs-app.com'],
 
@@ -30,6 +30,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true, // <-- PASTIKAN INI TRUE!
+    'supports_credentials' => false, // TRUE or FALSE
 
 ];
