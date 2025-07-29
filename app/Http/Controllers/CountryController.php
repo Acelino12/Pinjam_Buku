@@ -11,12 +11,12 @@ class CountryController extends Controller
     {
         $country = Countries::all();
 
-        return view('feature.country', ['country' => $country]);
+        return view('country.country', ['country' => $country]);
     }
 
     public function input()
     {
-        return view('feature.add-country');
+        return view('country.add-country');
     }
 
     public function create(Request $request)

@@ -104,6 +104,6 @@ class UsersController extends Controller
     {
         $dataSoftDelete = Bookstore_users::onlyTrashed()->get();
 
-        return view('feature.soft-delete', ['datausers' => $dataSoftDelete]);
+        return view('users.soft-delete', ['datausers' => $dataSoftDelete]);
     }
 }
