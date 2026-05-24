@@ -37,7 +37,26 @@
 
 2. install Dependensi Laravel (Composer)
 
-   composer install
+<table>
+    <tr>
+        <td>instal composer</td>
+        <td>versi php</td>
+    </tr>
+    <tr>
+        <td>
+        <br>composer install
+        </td>
+        <td>
+        <br>
+        <br>composer install --ignore-platform-reqs
+        <br>
+        <br>jika terjadi pembatasan karena versi php 
+        <br>di laptop/pc berbeda dengan di file ini
+        <br>
+        </td>
+    </tr>
+
+</table>
 
 4. generate key untuk .env dengan CLI
 
