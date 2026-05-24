@@ -36,16 +36,17 @@
 </table>
 
 2. install Dependensi Laravel (Composer)
+
    composer install
 
-3. generate key untuk .env dengan CLI
+4. generate key untuk .env dengan CLI
 
     php artisan key:generate <br>
 
-4. lakukan migrasi database 
+5. lakukan migrasi database 
 
     php artisan migrate <br>
 
-5. jalakan aplikasi
+6. jalakan aplikasi
 
     php artisan serve <br>
